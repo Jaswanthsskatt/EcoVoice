@@ -5,7 +5,6 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Hero from './pages/Hero';
 import ClimateMap from './pages/ClimateMap';
-import Report from './pages/Reports';
 import Community from './pages/Community';
 import CommunityPosts from './pages/CommunityPosts';
 import Learn from './pages/Learn';
