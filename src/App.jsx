@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Hero from './pages/Hero';
 import ClimateMap from './pages/ClimateMap';
 import Community from './pages/Community';
+import CommunityPosts from './pages/CommunityPosts';
 import Learn from './pages/Learn';
 import Reports from './pages/Reports';
 import About from './pages/About';
@@ -23,6 +24,7 @@ function App() {
 					<Route path='/climatemap' element={<ClimateMap />} />
 					<Route path='/reports' element={<Reports />} />
 					<Route path='/community' element={<Community />} />
+					<Route path='/community/posts' element={<CommunityPosts />} />
 					<Route path='/learn' element={<Learn />} />
 					<Route path='/about' element={<About />} />
 					<Route path='/contact' element={<Contact />} />
