@@ -43,6 +43,26 @@ const allPosts = [
     likes: 21,
     comments: 4,
   },
+  {
+    id: 5,
+    author: '🌞 SolarSpark',
+    time: '3 days ago',
+    text: 'Shared solar-powered lighting ideas with 20 nearby homes to reduce energy consumption.',
+    image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e',
+    alt: 'Solar Energy',
+    likes: 19,
+    comments: 5,
+  },
+  {
+    id: 6,
+    author: '💧 WaterSaver',
+    time: '4 days ago',
+    text: 'Started a rainwater harvesting project that is already helping our neighborhood gardens.',
+    image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d',
+    alt: 'Water Harvesting',
+    likes: 17,
+    comments: 3,
+  },
 ];
 
 function CommunityPosts() {
@@ -53,9 +73,15 @@ function CommunityPosts() {
         <p>Browse stories, updates, and inspiring actions from the EcoVoice community.</p>
       </div>
 
-      <Link className='back-link' to='/community'>← Back to Community</Link>
+      <div className='posts-toolbar'>
+        <Link className='back-link' to='/community'>← Back to Community</Link>
+        <div className='view-links'>
+          <a className='view-link' href='#posts-grid'>View all posts</a>
+          <a className='view-link' href='#posts-grid'>View all pictures</a>
+        </div>
+      </div>
 
-      <div className='posts posts-grid'>
+      <div className='posts posts-grid' id='posts-grid'>
         {allPosts.map((post) => (
           <div className='post' key={post.id}>
             <h3>{post.author}</h3>
