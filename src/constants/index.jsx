@@ -1,4 +1,4 @@
-export const navLinks = [
+export const navLinksDesktop = [
 	{ name: 'Climate Map', path: '/climatemap' },
 	{ name: 'Reports', path: '/reports' },
 	{ name: 'Community', path: '/community' },
@@ -7,7 +7,26 @@ export const navLinks = [
 	{ name: 'Contact', path: '/contact' },
 ];
 
-import { FaLeaf, FaTemperatureHigh, FaTint, FaTree } from 'react-icons/fa';
+export const navLinksMobile = [
+	{ name: 'Climate Map', path: '/climatemap' },
+	{ name: 'Reports', path: '/reports' },
+	{ name: 'Community', path: '/community' },
+	{ name: 'Learn', path: '/learn' },
+	{ name: 'About', path: '/about' },
+	{ name: 'Contact', path: '/contact' },
+];
+
+import {
+	FaLeaf,
+	FaTemperatureHigh,
+	FaTint,
+	FaTree,
+	FaMapMarkedAlt,
+	FaUsers,
+	FaBookOpen,
+	FaWater,
+	FaArrowRight,
+} from 'react-icons/fa';
 
 export const stats = [
 	{
@@ -44,8 +63,6 @@ export const stats = [
 	},
 ];
 
-import { FaMapMarkedAlt, FaUsers, FaBookOpen } from 'react-icons/fa';
-
 export const cards = [
 	{
 		icon: <FaMapMarkedAlt />,
@@ -74,5 +91,33 @@ export const cards = [
 		desc: 'Learn about climate change and sustainability.',
 		btn: 'Start Learning →',
 		color: 'bg-green-100 text-green-700',
+	},
+];
+
+import airQuality from '../assets/air_quality.jpeg';
+import heavyRainfall from '../assets/heavy_rainfall.jpeg';
+import treesPlanted from '../assets/trees_planted.jpeg';
+
+export const updates = [
+	{
+		image: airQuality,
+		title: 'Air Quality Improved',
+		date: 'July 07, 2026',
+		description:
+			'AQI levels dropped by 18% across the city due to recent rainfall and plantation drives.',
+	},
+	{
+		image: heavyRainfall,
+		title: 'Heavy Rainfall Alert',
+		date: 'July 06, 2026',
+		description:
+			'Meteorological dept predicts moderate to heavy rainfall in coastal regions.',
+	},
+	{
+		image: treesPlanted,
+		title: '10,000 Trees Planted',
+		date: 'July 05, 2026',
+		description:
+			'Volunteers successfully planted over 10,000 saplings during the Green Earth campaign.',
 	},
 ];
