@@ -11,6 +11,8 @@ import Learn from './pages/Learn';
 import Reports from './pages/Reports';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Donate from './pages/Donate';
 
 function App() {
 	return (
@@ -28,6 +30,8 @@ function App() {
 					<Route path='/learn' element={<Learn />} />
 					<Route path='/about' element={<About />} />
 					<Route path='/contact' element={<Contact />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/donate' element={<Donate />} />
 				</Routes>
 			</main>
 			<div className='pt-8'>

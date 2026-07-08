@@ -41,7 +41,7 @@ function Contact() {
   };
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 px-6 py-20 text-gray-800'>
+    <div className='min-h-screen bg-linear-to-br from-green-50 via-white to-blue-50 px-6 py-20 text-gray-800'>
       <div className='mx-auto max-w-5xl rounded-3xl bg-white p-8 shadow-xl'>
         <div className='grid gap-10 lg:grid-cols-2'>
           <div>

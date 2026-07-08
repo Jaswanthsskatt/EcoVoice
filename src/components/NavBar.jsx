@@ -42,12 +42,16 @@ function NavBar() {
 				</div>
 				<div className='hidden md:hidden lg:flex pr-6 lg:pr-10'>
 					<div className='flex gap-0 lg:gap-5'>
-						<button className=' border-2 border-green-600 text-white text-sm font-semibold px-4 py-2 rounded-lg cursor-pointer'>
-							Donate
-						</button>
-						<button className=' border-2 border-blue-600 text-white text-sm font-semibold px-4 py-2  rounded-lg cursor-pointer'>
-							Login
-						</button>
+						<NavLink to='/donate' className='cursor-pointer'>
+							<button className=' border-2 border-green-600 text-white text-sm font-semibold px-4 py-2 rounded-lg cursor-pointer'>
+								Donate
+							</button>
+						</NavLink>
+						<NavLink to='/login' className='cursor-pointer'>
+							<button className=' border-2 border-blue-600 text-white text-sm font-semibold px-4 py-2  rounded-lg cursor-pointer'>
+								Login
+							</button>
+						</NavLink>
 					</div>
 				</div>
 			</nav>
@@ -106,13 +110,17 @@ function NavBar() {
 						))}
 
 						<div className='mt-5 px-5 flex flex-col gap-3'>
-							<button className='border-2 border-green-600 text-white py-2 rounded-lg'>
-								Donate
-							</button>
+							<NavLink to='/donate' onClick={() => setToggle(false)} className='cursor-pointer w-full'>
+								<button className='w-full border-2 border-green-600 text-white py-2 rounded-lg cursor-pointer'>
+									Donate
+								</button>
+							</NavLink>
 
-							<button className='border-2 border-blue-600 text-white py-2 rounded-lg'>
-								Login
-							</button>
+							<NavLink to='/login' onClick={() => setToggle(false)} className='cursor-pointer w-full'>
+								<button className='w-full border-2 border-blue-600 text-white py-2 rounded-lg cursor-pointer'>
+									Login
+								</button>
+							</NavLink>
 						</div>
 					</ul>
 				</div>
