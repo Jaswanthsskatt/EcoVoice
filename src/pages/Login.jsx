@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, Loader2, ArrowRight, CheckCircle, Leaf, AlertCircle, Sparkles } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, Loader2, ArrowRight, CheckCircle, Leaf, AlertCircle, Sparkles } from 'lucide-react';
 import { FaGoogle } from 'react-icons/fa';
 
 function Login() {
   const navigate = useNavigate();
+  const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   
   // Form state
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -19,13 +23,33 @@ function Login() {
     const tempErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!email.trim()) {
-      tempErrors.email = 'Email is required';
-    } else if (!emailRegex.test(email)) {
-      tempErrors.email = 'Please enter a valid email address';
-    }
-    if (!password) {
-      tempErrors.password = 'Password is required';
+    if (isSignUp) {
+      if (!name.trim()) tempErrors.name = 'Name is required';
+      if (!email.trim()) {
+        tempErrors.email = 'Email is required';
+      } else if (!emailRegex.test(email)) {
+        tempErrors.email = 'Please enter a valid email address';
+      }
+      if (!password) {
+        tempErrors.password = 'Password is required';
+      } else if (password.length < 6) {
+        tempErrors.password = 'Password must be at least 6 characters';
+      }
+      if (password !== confirmPassword) {
+        tempErrors.confirmPassword = 'Passwords do not match';
+      }
+      if (!agreeTerms) {
+        tempErrors.agreeTerms = 'You must agree to the Terms & Conditions';
+      }
+    } else {
+      if (!email.trim()) {
+        tempErrors.email = 'Email is required';
+      } else if (!emailRegex.test(email)) {
+        tempErrors.email = 'Please enter a valid email address';
+      }
+      if (!password) {
+        tempErrors.password = 'Password is required';
+      }
     }
 
     setErrors(tempErrors);
@@ -129,10 +153,12 @@ function Login() {
                 <CheckCircle className='w-12 h-12' />
               </div>
               <h3 className='text-2xl font-bold text-gray-900 mb-2'>
-                Welcome Back!
+                {isSignUp ? 'Account Created!' : 'Welcome Back!'}
               </h3>
               <p className='text-gray-500 text-sm max-w-sm'>
-                Successfully authenticated. Redirecting you to the homepage...
+                {isSignUp 
+                  ? 'Your EcoVoice profile is ready. Preparing your environmental dashboard...' 
+                  : 'Successfully authenticated. Redirecting you to the homepage...'}
               </p>
               <div className='mt-6 w-24 h-1 bg-gray-100 rounded-full overflow-hidden'>
                 <div className='h-full bg-green-600 rounded-full animate-loading-bar' />
@@ -143,16 +169,88 @@ function Login() {
           {/* Header inside Form card */}
           <div className='mb-8'>
             <h3 className='text-2xl font-bold text-gray-900'>
-              Welcome back to EcoVoice
+              {isSignUp ? 'Get started today' : 'Welcome back to EcoVoice'}
             </h3>
             <p className='text-gray-500 text-sm mt-1.5'>
-              Log in to access your reports and support your community.
+              {isSignUp 
+                ? 'Create an account to track air/water quality and file reports.' 
+                : 'Log in to access your reports and support your community.'}
             </p>
+          </div>
+
+          {/* Sign In / Sign Up Navigation Tabs */}
+          <div className='flex border-b border-gray-100 mb-8 relative'>
+            <button
+              type='button'
+              onClick={() => {
+                setIsSignUp(false);
+                setErrors({});
+              }}
+              className={`flex-1 pb-4 text-sm font-semibold transition-all duration-300 relative cursor-pointer ${
+                !isSignUp ? 'text-green-700 font-bold' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              Sign In
+              {!isSignUp && (
+                <span className='absolute bottom-0 left-0 right-0 h-0.5 bg-green-600 rounded-full' />
+              )}
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                setIsSignUp(true);
+                setErrors({});
+              }}
+              className={`flex-1 pb-4 text-sm font-semibold transition-all duration-300 relative cursor-pointer ${
+                isSignUp ? 'text-green-700 font-bold' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              Create Account
+              {isSignUp && (
+                <span className='absolute bottom-0 left-0 right-0 h-0.5 bg-green-600 rounded-full' />
+              )}
+            </button>
           </div>
 
           {/* Form Element */}
           <form onSubmit={handleSubmit} className='space-y-5'>
             
+            {/* Error Banner */}
+            {errors.agreeTerms && (
+              <div className='p-3 bg-red-50 border border-red-100 text-red-700 rounded-xl text-xs flex items-center gap-2 animate-shake'>
+                <AlertCircle className='w-4 h-4 shrink-0' />
+                <span>{errors.agreeTerms}</span>
+              </div>
+            )}
+
+            {/* Full Name input (Sign Up only) */}
+            {isSignUp && (
+              <div className='space-y-1.5'>
+                <label className='text-xs font-semibold text-gray-700 block'>
+                  Full Name
+                </label>
+                <div className='relative'>
+                  <div className='absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400'>
+                    <User size={18} />
+                  </div>
+                  <input
+                    type='text'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className={`block w-full pl-10 pr-3 py-3 border rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-green-500/10 focus:border-green-600 transition-all duration-200 text-sm ${
+                      errors.name ? 'border-red-300 focus:ring-red-500/10 focus:border-red-500' : 'border-gray-200'
+                    }`}
+                    placeholder='John Doe'
+                  />
+                </div>
+                {errors.name && (
+                  <p className='text-xs text-red-600 flex items-center gap-1 mt-1 animate-shake'>
+                    <AlertCircle className='w-3.5 h-3.5' /> {errors.name}
+                  </p>
+                )}
+              </div>
+            )}
+
             {/* Email input */}
             <div className='space-y-1.5'>
               <label className='text-xs font-semibold text-gray-700 block'>
@@ -185,9 +283,11 @@ function Login() {
                 <label className='text-xs font-semibold text-gray-700 block'>
                   Password
                 </label>
-                <a href='#forgot' className='text-xs font-semibold text-green-600 hover:text-green-700 transition-colors'>
-                  Forgot password?
-                </a>
+                {!isSignUp && (
+                  <a href='#forgot' className='text-xs font-semibold text-green-600 hover:text-green-700 transition-colors'>
+                    Forgot password?
+                  </a>
+                )}
               </div>
               <div className='relative'>
                 <div className='absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400'>
@@ -217,20 +317,71 @@ function Login() {
               )}
             </div>
 
-            {/* Remember Me */}
-            <div className='flex items-center justify-between py-1'>
-              <label className='flex items-center gap-2 cursor-pointer group select-none'>
-                <input
-                  type='checkbox'
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className='w-4.5 h-4.5 rounded text-green-600 border-gray-300 focus:ring-green-500/20 cursor-pointer accent-green-600'
-                />
-                <span className='text-xs text-gray-600 group-hover:text-gray-800 transition-colors font-medium'>
-                  Keep me logged in
-                </span>
-              </label>
-            </div>
+            {/* Confirm Password (Sign Up only) */}
+            {isSignUp && (
+              <div className='space-y-1.5'>
+                <label className='text-xs font-semibold text-gray-700 block'>
+                  Confirm Password
+                </label>
+                <div className='relative'>
+                  <div className='absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400'>
+                    <Lock size={18} />
+                  </div>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className={`block w-full pl-10 pr-10 py-3 border rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-green-500/10 focus:border-green-600 transition-all duration-200 text-sm ${
+                      errors.confirmPassword ? 'border-red-300 focus:ring-red-500/10 focus:border-red-500' : 'border-gray-200'
+                    }`}
+                    placeholder='••••••••'
+                  />
+                </div>
+                {errors.confirmPassword && (
+                  <p className='text-xs text-red-600 flex items-center gap-1 mt-1 animate-shake'>
+                    <AlertCircle className='w-3.5 h-3.5' /> {errors.confirmPassword}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Remember Me / Terms Checkboxes */}
+            {!isSignUp ? (
+              <div className='flex items-center justify-between py-1'>
+                <label className='flex items-center gap-2 cursor-pointer group select-none'>
+                  <input
+                    type='checkbox'
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className='w-4.5 h-4.5 rounded text-green-600 border-gray-300 focus:ring-green-500/20 cursor-pointer accent-green-600'
+                  />
+                  <span className='text-xs text-gray-600 group-hover:text-gray-800 transition-colors font-medium'>
+                    Keep me logged in
+                  </span>
+                </label>
+              </div>
+            ) : (
+              <div className='py-1'>
+                <label className='flex items-start gap-2.5 cursor-pointer group select-none'>
+                  <input
+                    type='checkbox'
+                    checked={agreeTerms}
+                    onChange={(e) => setAgreeTerms(e.target.checked)}
+                    className='w-4.5 h-4.5 rounded text-green-600 border-gray-300 focus:ring-green-500/20 cursor-pointer accent-green-600 mt-0.5'
+                  />
+                  <span className='text-xs text-gray-600 group-hover:text-gray-800 transition-colors leading-normal font-medium'>
+                    I agree to the{' '}
+                    <a href='#terms' className='text-green-600 hover:text-green-700 underline font-semibold'>
+                      Terms of Service
+                    </a>{' '}
+                    and{' '}
+                    <a href='#privacy' className='text-green-600 hover:text-green-700 underline font-semibold'>
+                      Privacy Policy
+                    </a>
+                  </span>
+                </label>
+              </div>
+            )}
 
             {/* Submit button */}
             <button
@@ -245,7 +396,7 @@ function Login() {
                 </>
               ) : (
                 <>
-                  <span>Sign In</span>
+                  <span>{isSignUp ? 'Create Account' : 'Sign In'}</span>
                   <ArrowRight className='w-4 h-4 group-hover:translate-x-1 transition-transform' />
                 </>
               )}
@@ -269,6 +420,33 @@ function Login() {
               <FaGoogle className='w-4 h-4 text-red-500' />
               <span>Google</span>
             </button>
+          </div>
+
+          {/* Bottom Switcher text */}
+          <div className='text-center mt-6 text-xs text-gray-500 font-medium'>
+            {!isSignUp ? (
+              <span>
+                Don't have an account?{' '}
+                <button
+                  type='button'
+                  onClick={() => setIsSignUp(true)}
+                  className='text-green-600 hover:text-green-700 font-bold hover:underline cursor-pointer bg-transparent border-none'
+                >
+                  Create one
+                </button>
+              </span>
+            ) : (
+              <span>
+                Already have an account?{' '}
+                <button
+                  type='button'
+                  onClick={() => setIsSignUp(false)}
+                  className='text-green-600 hover:text-green-700 font-bold hover:underline cursor-pointer bg-transparent border-none'
+                >
+                  Sign In
+                </button>
+              </span>
+            )}
           </div>
 
         </div>
