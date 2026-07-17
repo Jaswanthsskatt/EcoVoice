@@ -106,25 +106,18 @@ function NavBar() {
 
 				{/* RIGHT BUTTONS */}
 				<div className='hidden lg:flex items-center gap-2.5 shrink-0 pl-2'>
-					<NavLink to='/login' className='cursor-pointer'>
-						<button className={`border border-[#168a42] text-[#168a42] text-sm font-semibold px-4 py-1.5 rounded-lg cursor-pointer transition-colors ${
-							isDarkHeader ? 'hover:bg-white/10' : 'hover:bg-[#168a42]/5'
-						}`}>
-							Login
-						</button>
-					</NavLink>
-					<NavLink to='/login' className='cursor-pointer'>
-						<button className='bg-[#168a42] hover:bg-[#116c33] text-white text-sm font-semibold px-4 py-1.5 rounded-lg cursor-pointer transition-colors shadow-md shadow-[#168a42]/10'>
-							Register
+					<NavLink to='/donate' className='cursor-pointer'>
+						<button className='bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer transition-all shadow-md shadow-rose-600/10 flex items-center gap-1.5 border-none'>
+							Donate ♥️
 						</button>
 					</NavLink>
 				</div>
 
 				{/* MOBILE MENU TOGGLE BUTTON */}
 				<div className='lg:hidden flex items-center gap-3'>
-					<NavLink to='/login' className='cursor-pointer'>
-						<button className='border border-[#168a42] text-[#168a42] text-xs font-semibold px-3 py-1 rounded-md cursor-pointer'>
-							Login
+					<NavLink to='/donate' className='cursor-pointer'>
+						<button className='bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer'>
+							Donate ♥️
 						</button>
 					</NavLink>
 					
@@ -171,11 +164,11 @@ function NavBar() {
 							})}
 						</ul>
 
-						{/* Register option */}
+						{/* Donate option */}
 						<div className='flex flex-col gap-3'>
-							<NavLink to='/login' onClick={() => setToggle(false)} className='w-full'>
-								<button className='w-full bg-[#168a42] hover:bg-[#116c33] text-white py-2.5 rounded-xl font-bold transition-colors cursor-pointer shadow-md shadow-[#168a42]/10'>
-									Register
+							<NavLink to='/donate' onClick={() => setToggle(false)} className='w-full'>
+								<button className='w-full bg-rose-600 hover:bg-rose-700 text-white py-2.5 rounded-xl font-bold transition-all cursor-pointer shadow-md shadow-rose-600/10 flex items-center justify-center gap-1.5 border-none'>
+									Donate ♥️
 								</button>
 							</NavLink>
 						</div>
