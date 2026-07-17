@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Leaf, Eye, ShieldCheck, Heart, Users, CheckCircle, Quote, Star, Award, Building2, ExternalLink, ArrowRight, Sparkles, AlertCircle, Loader2 } from 'lucide-react';
+import { useState } from 'react';
+import { CheckCircle, Quote, Star, Building2, ArrowRight, Sparkles, AlertCircle, Loader2 } from 'lucide-react';
 import globe from '../assets/globe.jpg';
-import planting from '../assets/planting.png';
 
 const PARTNERS = [
 	{ name: 'UN Environment', logo: '🇺🇳', role: 'Global NGO Partner' },
@@ -68,7 +67,6 @@ const ENGAGEMENT_TIERS = [
 		title: 'Municipalities',
 		subtitle: 'Local Councils & City Planning',
 		features: [
-			'Custom report dispatch dashboards',
 			'Dedicated SMS & email alerts',
 			'Public map widgets for city portals',
 			'Priority support for waste dispatch'

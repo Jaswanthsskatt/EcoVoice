@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import img1 from '../assets/1.jpeg';
 import img2 from '../assets/2.jpeg';
 import img3 from '../assets/3.jpeg';
@@ -97,7 +98,13 @@ function Learn({ onArticleClick }) {
       {/* Learn Header */}
       <section className="text-center mb-10 flex flex-col items-center gap-2 max-w-300 mx-auto pt-14 px-4 pb-4">
         <h2 className="text-5xl md:text-6xl font-extrabold tracking-tight text-black mb-2 leading-[1.05]">Learn for a Sustainable Future</h2>
-        <p className="text-black/75 text-lg">Explore topics and resources to understand our environment better.</p>
+        <p className="text-black/75 text-lg mb-4">Explore topics and resources to understand our environment better.</p>
+        <Link 
+          to="/knowledge" 
+          className="px-6 py-2.5 rounded-full font-semibold text-sm bg-[#2d6a4f] hover:bg-[#1b4332] text-white transition-all duration-300 shadow-md shadow-green-900/10 cursor-pointer"
+        >
+          Explore Knowledge Base &rarr;
+        </Link>
         
         {/* Search */}
         <div className="mt-6 border border-slate-200 focus-within:border-green-400 focus-within:ring-2 focus-within:ring-green-400/20 rounded-lg px-5 py-2.5 w-full max-w-112.5 bg-white shadow-sm flex items-center gap-3 transition-all duration-300">

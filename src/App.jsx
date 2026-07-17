@@ -13,6 +13,12 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Donate from './pages/Donate';
+import Petitions from './pages/Petitions';
+import Volunteer from './pages/Volunteer';
+import Marketplace from './pages/Marketplace';
+import Knowledge from './pages/Knowledge';
+import Challenges from './pages/Challenges';
+import AIAssistant from './pages/AIAssistant';
 
 function App() {
 	return (
@@ -32,11 +38,17 @@ function App() {
 					<Route path='/contact' element={<Contact />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/donate' element={<Donate />} />
+					<Route path='/petitions' element={<Petitions />} />
+					<Route path='/volunteer' element={<Volunteer />} />
+					<Route path='/marketplace' element={<Marketplace />} />
+					<Route path='/knowledge' element={<Knowledge />} />
+					<Route path='/challenges' element={<Challenges />} />
 				</Routes>
 			</main>
 			<div className='pt-8'>
                 <Footer />
             </div>
+			<AIAssistant />
 		</div>
 	);
 }

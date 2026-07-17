@@ -234,6 +234,46 @@ function ClimateMap() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Fetch weather data on mount for London, UK (coordinates)
+  useEffect(() => {
+    // London, UK coordinates
+    const lat = 51.5074;
+    const lng = -0.1278;
+
+    // Center the map on London and add a marker after render
+    const timer = setTimeout(() => {
+      setSelectedCoords({ lat, lng });
+      setActiveTab('weather');
+      fetchWeatherData(lat, lng);
+
+      if (mapRef.current) {
+        mapRef.current.setView([lat, lng], 7);
+        
+        if (markerRef.current) {
+          mapRef.current.removeLayer(markerRef.current);
+        }
+
+        const customIcon = L.divIcon({
+          html: `
+            <div class="relative flex h-8 w-8 items-center justify-center">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <div class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white shadow-md"></div>
+            </div>
+          `,
+          className: 'custom-marker',
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
+        });
+
+        const marker = L.marker([lat, lng], { icon: customIcon }).addTo(mapRef.current);
+        markerRef.current = marker;
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+
   // Update base map layer when baseMapType changes
   useEffect(() => {
     if (!mapRef.current || !tileLayerRef.current) return;
@@ -322,7 +362,7 @@ function ClimateMap() {
               <span>Breeze</span>
               <span>Gale (80 km/h)</span>
             </div>
-            <div className="h-2.5 w-full rounded-full bg-gradient-to-r from-emerald-100 via-teal-100 via-sky-200 to-slate-400" />
+            <div className="h-2.5 w-full rounded-full bg-linear-to-r from-emerald-100 via-teal-100 via-sky-200 to-slate-400" />
           </div>
         );
       case 'cloudcover':

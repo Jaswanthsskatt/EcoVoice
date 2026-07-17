@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart, Sparkles, Leaf, IndianRupee, CheckCircle, ArrowRight, Loader2, ShieldCheck, Award, AlertCircle, Calendar } from 'lucide-react';
 import { FaCreditCard, FaPaypal } from 'react-icons/fa';
@@ -27,6 +27,7 @@ function Donate() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [errors, setErrors] = useState({});
+	const [paymentReference, setPaymentReference] = useState('');
 
 	// Get active donation amount
 	const getDonationAmount = () => {
@@ -97,6 +98,7 @@ function Donate() {
 		
 		// Simulate network payment request
 		setTimeout(() => {
+			setPaymentReference(`EV-${Math.floor(100000 + Math.random() * 900000)}`);
 			setIsLoading(false);
 			setIsSuccess(true);
 		}, 2000);
@@ -141,9 +143,8 @@ function Donate() {
 								You have successfully supported the <strong>{getDonationAmount() >= 1000 ? 'Climate Defender' : getDonationAmount() >= 500 ? 'Air Guardian' : getDonationAmount() >= 250 ? 'Clean Water Champion' : 'Sapling Partner'}</strong> initiative. A receipt has been sent to <strong>{email}</strong>.
 							</p>
 							
-							{/* Simple Receipt list */}
 							<div className='bg-gray-50 rounded-xl p-4 mb-6 text-left text-xs space-y-2 text-gray-600 border border-gray-100'>
-								<div className='flex justify-between'><span className='font-medium'>Payment Reference:</span> <span className='font-mono text-gray-900'>EV-{Math.floor(100000 + Math.random() * 900000)}</span></div>
+								<div className='flex justify-between'><span className='font-medium'>Payment Reference:</span> <span className='font-mono text-gray-900'>{paymentReference}</span></div>
 								<div className='flex justify-between'><span className='font-medium'>Frequency:</span> <span className='text-gray-900'>{isMonthly ? 'Monthly Recurring' : 'One-time Donation'}</span></div>
 								<div className='flex justify-between'><span className='font-medium'>Paid via:</span> <span className='text-gray-900'>{paymentMethod === 'card' ? 'Credit Card' : 'PayPal'}</span></div>
 							</div>

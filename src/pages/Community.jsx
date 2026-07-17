@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "./community.css";
  
@@ -30,11 +29,16 @@ function Community() {
           <p>Join or create groups for local action.</p>
         </div>
  
-        <div className="card">
+        <Link to="/volunteer" className="card">
           <h3>🙋 Volunteers</h3>
           <p>Find volunteer opportunities.</p>
-        </div>
- 
+        </Link>
+
+        <Link to="/petitions" className="card">
+          <h3>✍️ Petitions</h3>
+          <p>Start or sign environmental petitions.</p>
+        </Link>
+
         <div className="card">
           <h3>📖 Success Stories</h3>
           <p>Be inspired by real impact stories.</p>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import eco from '../assets/eco.svg';
 import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
@@ -10,7 +9,7 @@ function Footer() {
 			<section className='flex flex-col'>
 				<div className='py-5 md:py-5  bg-black/80 backdrop-blur-xl  shadow-lg px-10 flex flex-wrap gap-10 justify-evenly'>
 					<div className=' hidden lg:flex flex-col gap-3 py-1 '>
-						<NavLink to='/' onClick={() => setActive('')}>
+						<NavLink to='/'>
 							<div className='flex  text-xl text-white font-medium gap-1 cursor-pointer'>
 								<img src={eco} alt='logo' className='w-6 ' />
 								<div>EcoVoice</div>

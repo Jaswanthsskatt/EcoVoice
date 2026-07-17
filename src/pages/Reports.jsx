@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ReportForm from '../components/ReportForm'
 import IssueCard from '../components/IssueCard'
 import ReportTable from '../components/ReportTable'

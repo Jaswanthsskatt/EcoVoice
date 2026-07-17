@@ -1,128 +1,185 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import eco from '../assets/eco.svg';
+import { useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { 
+  Home, 
+  Users, 
+  AlertTriangle, 
+  Globe, 
+  ClipboardList, 
+  Heart, 
+  ShoppingBag, 
+  BookOpen, 
+  GraduationCap, 
+  Bot, 
+  Info, 
+  Mail,
+  Menu,
+  X
+} from 'lucide-react';
 import { navLinksDesktop, navLinksMobile } from '../constants';
 
+const iconMap = {
+  'Home': Home,
+  'Community': Users,
+  'Issues': AlertTriangle,
+  'Climate Map': Globe,
+  'Petitions': ClipboardList,
+  'Volunteer': Heart,
+  'Marketplace': ShoppingBag,
+  'Knowledge': BookOpen,
+  'Academy': GraduationCap,
+  'AI Assistant': Bot,
+  'About': Info,
+  'Contact': Mail
+};
+
 function NavBar() {
-	const [active, setActive] = useState('');
 	const [toggle, setToggle] = useState(false);
+	const [scrolled, setScrolled] = useState(false);
+	const location = useLocation();
+
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY > 20) {
+				setScrolled(true);
+			} else {
+				setScrolled(false);
+			}
+		};
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
+
+	const isHomePage = location.pathname === '/';
+	// Dynamic style: transparent background on home page top, white blur elsewhere
+	const isDarkHeader = isHomePage && !scrolled;
 
 	return (
 		<>
 			{/* DESKTOP NAVIGATION */}
-			<nav className='fixed top-0 left-0 right-0 z-100 h-20 flex justify-between items-center backdrop-blur-xl shadow-lg border-b border-white/50 bg-black/60'>
-				<NavLink to='/' onClick={() => setActive('')}>
-					<div className='flex pl-5 lg:pl-10 text-2xl text-white font-medium gap-1 cursor-pointer'>
-						<img src={eco} alt='logo' className='w-6 ' />
-						<div>EcoVoice</div>
+			<nav className={`fixed top-0 left-0 right-0 z-50 h-20 flex justify-between items-center px-4 xl:px-8 transition-all duration-500 border-t ${
+				isDarkHeader 
+					? 'bg-white/10 backdrop-blur-lg border-b border-white/10 border-t-white/25 shadow-[0_8px_32px_0_rgba(0,0,0,0.12)] text-white' 
+					: 'bg-white/40 backdrop-blur-lg border-b border-white/50 border-t-white/60 shadow-[0_8px_32px_0_rgba(31,38,135,0.06)] text-[#08060d]'
+			}`}>
+				
+				{/* LOGO */}
+				<NavLink to='/' className='flex flex-col select-none shrink-0 pr-2'>
+					<div className='text-2xl font-bold tracking-tight leading-none'>
+						<span className='text-[#168a42]'>Eco</span>
+						<span className={isDarkHeader ? 'text-white' : 'text-[#08060d]'}>Voice</span>
 					</div>
+					<span className={`text-[9px] font-bold tracking-wider mt-1 ${
+						isDarkHeader ? 'text-gray-300' : 'text-gray-500'
+					}`}>
+						Speak. Act. Heal Earth.
+					</span>
 				</NavLink>
-				<div>
-					<ul className='hidden md:hidden lg:flex justify-evenly text-white font-normal gap-0 lg:gap-12 text-base'>
-						{navLinksDesktop.map(({ name, path }) => (
-							<li key={path}>
-								<NavLink
-									to={path}
-									onClick={() => setActive(name)}
-									className='relative cursor-pointer'
-								>
-									<span
-										className={`transition-colors duration-300 ${
-											active === name
-												? 'text-green-500 border-b-3 pb-1 border-b-white'
-												: 'text-white hover:text-green-600'
-										}`}
+
+				{/* LINKS */}
+				<div className='hidden lg:flex items-center justify-center flex-1 h-full px-2'>
+					<ul className='flex items-center h-full gap-2.5 xl:gap-5 text-[10.5px] xl:text-[11px] font-semibold'>
+						{navLinksDesktop.map(({ name, path }) => {
+							const IconComponent = iconMap[name] || Info;
+							return (
+								<li key={path} className='h-full'>
+									<NavLink
+										to={path}
+										className={({ isActive }) =>
+											`h-full px-2.5 xl:px-4 flex flex-col items-center justify-center gap-1.5 border-b-3 transition-all duration-300 cursor-pointer ${
+												isActive
+													? 'border-[#168a42] text-[#168a42]'
+													: isDarkHeader
+														? 'border-transparent text-gray-200 hover:text-[#168a42] hover:border-[#168a42]/30'
+														: 'border-transparent text-gray-600 hover:text-[#168a42] hover:border-[#168a42]/30'
+											}`
+										}
 									>
-										{name}
-									</span>
-								</NavLink>
-							</li>
-						))}
+										<IconComponent size={19} className='shrink-0' />
+										<span className='tracking-wide'>{name}</span>
+									</NavLink>
+								</li>
+							);
+						})}
 					</ul>
 				</div>
-				<div className='hidden md:hidden lg:flex pr-6 lg:pr-10'>
-					<div className='flex gap-0 lg:gap-5'>
-						<NavLink to='/donate' className='cursor-pointer'>
-							<button className=' border-2 border-green-600 text-white text-sm font-semibold px-4 py-2 rounded-lg cursor-pointer'>
-								Donate
-							</button>
-						</NavLink>
-						<NavLink to='/login' className='cursor-pointer'>
-							<button className=' border-2 border-blue-600 text-white text-sm font-semibold px-4 py-2  rounded-lg cursor-pointer'>
-								Login
-							</button>
-						</NavLink>
-					</div>
+
+				{/* RIGHT BUTTONS */}
+				<div className='hidden lg:flex items-center gap-2.5 shrink-0 pl-2'>
+					<NavLink to='/login' className='cursor-pointer'>
+						<button className={`border border-[#168a42] text-[#168a42] text-sm font-semibold px-4 py-1.5 rounded-lg cursor-pointer transition-colors ${
+							isDarkHeader ? 'hover:bg-white/10' : 'hover:bg-[#168a42]/5'
+						}`}>
+							Login
+						</button>
+					</NavLink>
+					<NavLink to='/login' className='cursor-pointer'>
+						<button className='bg-[#168a42] hover:bg-[#116c33] text-white text-sm font-semibold px-4 py-1.5 rounded-lg cursor-pointer transition-colors shadow-md shadow-[#168a42]/10'>
+							Register
+						</button>
+					</NavLink>
+				</div>
+
+				{/* MOBILE MENU TOGGLE BUTTON */}
+				<div className='lg:hidden flex items-center gap-3'>
+					<NavLink to='/login' className='cursor-pointer'>
+						<button className='border border-[#168a42] text-[#168a42] text-xs font-semibold px-3 py-1 rounded-md cursor-pointer'>
+							Login
+						</button>
+					</NavLink>
+					
+					<button
+						onClick={() => setToggle(!toggle)}
+						className='cursor-pointer p-1 z-50'
+						aria-label='Toggle menu'
+					>
+						{toggle ? (
+							<X size={24} className={isDarkHeader ? 'text-white' : 'text-[#08060d]'} />
+						) : (
+							<Menu size={24} className={isDarkHeader ? 'text-white' : 'text-[#08060d]'} />
+						)}
+					</button>
 				</div>
 			</nav>
 
-			{/* MOBILE MENU BUTTON */}
-			<div className='lg:hidden fixed top-6 right-5 z-110'>
-				<button
-					onClick={() => setToggle(!toggle)}
-					className='flex flex-col justify-center items-center gap-2 cursor-pointer'
-				>
-					<span
-						className={`w-6 h-0.5 bg-white rounded transition-all duration-300 ${
-							toggle ? 'rotate-45 translate-y-3' : ''
-						}`}
-					/>
-
-					<span
-						className={`w-2 h-0.5 bg-white rounded transition-all duration-300 ${
-							toggle ? 'opacity-0' : 'opacity-100'
-						}`}
-					/>
-
-					<span
-						className={`w-6 h-0.5 bg-white rounded transition-all duration-300 ${
-							toggle ? '-rotate-45 -translate-y-2' : ''
-						}`}
-					/>
-				</button>
-			</div>
-
 			{/* MOBILE DROPDOWN MENU */}
 			{toggle && (
-				<div className='lg:hidden fixed top-22 right-2 w-52 bg-black/60 backdrop-blur-2xl border border-white/20 rounded-md shadow-2xl z-110'>
-					<ul className='flex flex-col py-4 text-center'>
-						{navLinksMobile.map(({ name, path }) => (
-							<li key={path}>
-								<NavLink
-									to={path}
-									onClick={() => {
-										setActive(name);
-										setToggle(false);
-									}}
-									className='flex flex-col pb-1 text-white font-medium hover:text-green-500 transition duration-300'
-								>
-									<div
-										className={`${
-											active === name
-												? 'text-green-500 pb-1'
-												: ''
-										}`}
-									>
-										{name}
-									</div>
-								</NavLink>
-							</li>
-						))}
+				<div className='lg:hidden fixed inset-0 top-20 bg-white z-40 overflow-y-auto animate-fade-in'>
+					<div className='p-6 flex flex-col gap-6'>
+						{/* Links list with icons */}
+						<ul className='flex flex-col gap-4 text-base font-semibold border-b border-gray-100 pb-6'>
+							{navLinksMobile.map(({ name, path }) => {
+								const IconComponent = iconMap[name] || Info;
+								return (
+									<li key={path}>
+										<NavLink
+											to={path}
+											onClick={() => setToggle(false)}
+											className={({ isActive }) =>
+												`flex items-center gap-3 py-2 px-3 rounded-xl transition-all ${
+													isActive 
+														? 'bg-[#168a42]/10 text-[#168a42]' 
+														: 'text-gray-700 hover:bg-gray-50'
+												}`
+											}
+										>
+											<IconComponent size={20} className='shrink-0' />
+											<span>{name}</span>
+										</NavLink>
+									</li>
+								);
+							})}
+						</ul>
 
-						<div className='mt-5 px-5 flex flex-col gap-3'>
-							<NavLink to='/donate' onClick={() => setToggle(false)} className='cursor-pointer w-full'>
-								<button className='w-full border-2 border-green-600 text-white py-2 rounded-lg cursor-pointer'>
-									Donate
-								</button>
-							</NavLink>
-
-							<NavLink to='/login' onClick={() => setToggle(false)} className='cursor-pointer w-full'>
-								<button className='w-full border-2 border-blue-600 text-white py-2 rounded-lg cursor-pointer'>
-									Login
+						{/* Register option */}
+						<div className='flex flex-col gap-3'>
+							<NavLink to='/login' onClick={() => setToggle(false)} className='w-full'>
+								<button className='w-full bg-[#168a42] hover:bg-[#116c33] text-white py-2.5 rounded-xl font-bold transition-colors cursor-pointer shadow-md shadow-[#168a42]/10'>
+									Register
 								</button>
 							</NavLink>
 						</div>
-					</ul>
+					</div>
 				</div>
 			)}
 		</>

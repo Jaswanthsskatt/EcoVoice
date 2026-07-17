@@ -1,17 +1,21 @@
 export const navLinksDesktop = [
+	{ name: 'Home', path: '/' },
 	{ name: 'Climate Map', path: '/climatemap' },
-	{ name: 'Reports', path: '/reports' },
+	{ name: 'Issues', path: '/reports' },
 	{ name: 'Community', path: '/community' },
-	{ name: 'Learn', path: '/learn' },
+	{ name: 'Academy', path: '/learn' },
+	{ name: 'Marketplace', path: '/marketplace' },
 	{ name: 'About', path: '/about' },
 	{ name: 'Contact', path: '/contact' },
 ];
 
 export const navLinksMobile = [
+	{ name: 'Home', path: '/' },
 	{ name: 'Climate Map', path: '/climatemap' },
-	{ name: 'Reports', path: '/reports' },
+	{ name: 'Issues', path: '/reports' },
 	{ name: 'Community', path: '/community' },
-	{ name: 'Learn', path: '/learn' },
+	{ name: 'Academy', path: '/learn' },
+	{ name: 'Marketplace', path: '/marketplace' },
 	{ name: 'About', path: '/about' },
 	{ name: 'Contact', path: '/contact' },
 ];
@@ -24,8 +28,6 @@ import {
 	FaMapMarkedAlt,
 	FaUsers,
 	FaBookOpen,
-	FaWater,
-	FaArrowRight,
 } from 'react-icons/fa';
 
 export const stats = [
@@ -70,6 +72,7 @@ export const cards = [
 		desc: 'View real-time environmental data and alerts.',
 		btn: 'Explore Map →',
 		color: 'bg-green-100 text-green-600',
+		path: '/climatemap',
 	},
 	{
 		icon: <FaLeaf />,
@@ -77,6 +80,7 @@ export const cards = [
 		desc: 'Report environmental issues in your area.',
 		btn: 'Report Now →',
 		color: 'bg-orange-100 text-orange-500',
+		path: '/reports',
 	},
 	{
 		icon: <FaUsers />,
@@ -84,6 +88,7 @@ export const cards = [
 		desc: 'Connect, share and make a difference.',
 		btn: 'Join Community →',
 		color: 'bg-blue-100 text-blue-600',
+		path: '/community',
 	},
 	{
 		icon: <FaBookOpen />,
@@ -91,6 +96,7 @@ export const cards = [
 		desc: 'Learn about climate change and sustainability.',
 		btn: 'Start Learning →',
 		color: 'bg-green-100 text-green-700',
+		path: '/learn',
 	},
 ];
 

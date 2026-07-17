@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, Loader2, ArrowRight, CheckCircle, Leaf, AlertCircle, Sparkles } from 'lucide-react';
 import { FaGoogle } from 'react-icons/fa';
